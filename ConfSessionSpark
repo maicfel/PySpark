@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+
+######################################################################################################
+# Nome:                                                                                              #
+# Data Criaçao: 02/01/2021                                                                           #
+# Descriçao:    Conf Spark Session                                                                   #
+# Projeto:                                                                                           #
+#                                                                                                    #
+#                                                                                                    #
+#                                                                                                    #
+#                                                                                                    #
+######################################################################################################
+
+from pyspark.sql import SparkSession
+from pyspark import SparkContext
+from pyspark.conf import SparkConf
+from pyspark.sql.functions import udf
+
+print('Inicializa configuraçao do Spark.')
+
+conf = SparkConf().setAll([
+        ('spark.driver.memory', '8G'),
+        ('spark.hadoop.metastore.catalog.default', 'hive'),
+        ('spark.dynamicAllocation.enable', 'true'),
+        ('spark.dynamicAllocation.executorIdleTimeout', '120s'),
+        ('spark.dynamicAllocation.maxExecutors', '200'),
+        ('spark.dynamicAllocation.minExecutors', '1'),
+        ('spark.yarn.executor.memory', '8G'),
+        ('spark.dynamicAllocation.schedulerBacklogTimeout', '5s'),
+        ('spark.shuffle.service.enable', 'true'),
+        ('spark.shuffle.service.port', '7447'),
+        ('spark.executor.memoryOverhead', '16384'),
+        ('spark.driver.maxResultSize', '8G'),
+        ('spark.executor.cores', '5'),
+        ('spark.sql.shuffle.partitions', '800'),
+        ('spark.security.credentials.hiveserver2.enable', 'true'),
+        ('spark.memory.offHeap.enable', 'true'),
+        ('spark.memory.offHeap.size', '20148')])
+
+spark = SparkSession.builder.config(conf=conf).getOrCreate()
